@@ -7,7 +7,7 @@ a trabajar con dicho lenguaje.
 ## Repositorio de la práctica
 
 El **repositorio base** de la práctica está disponible en:
-<https://github.com/elisanoguera/practica_dwec_presupuesto.git>
+<https://github.com/elisanoguera/dwec-gestor-presupuesto.git>
 
 En esta primera práctica se deberá realizar un *fork* del repositorio
 base. Al realizar dicho *fork*, se creará un repositorio copia del
@@ -44,7 +44,7 @@ teórico y su sencillez.
 
 1.  Instalar los requisitos de software indicados
 2.  Hacer un *fork* del repositorio base
-    <https://github.com/elisanoguera/practica_dwec_presupuesto.git> en
+    <https://github.com/elisanoguera/dwec-gestor-presupuesto.git> en
     tu cuenta de GitHub
 3.  Abrir un terminal
 4.  Clonar **tu repositorio** (el que se ha creado en tu cuenta al hacer

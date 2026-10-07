@@ -6,7 +6,7 @@ conceptos fundamentales de JavaScript.
 ## Repositorio de la práctica
 
 El **repositorio base** de la práctica está disponible en:
-<https://github.com/elisanoguera/practica_dwec_presupuesto.git>
+<https://github.com/elisanoguera/dwec-gestor-presupuesto.git>
 
 En esta **segunda práctica** se debe configurar el **repositorio
 personal** (el que se creó haciendo un *fork* del repositorio base) para
@@ -76,7 +76,7 @@ indica que se han superado). Fuente:
     hay que ejecutar el comando:
 
     ``` shell
-    git remote add profesora https://github.com/elisanoguera/practica_dwec_presupuesto.git
+    git remote add profesora https://github.com/elisanoguera/dwec-gestor-presupuesto.git
     ```
 
 5.  **Incorporar a tu repositorio personal los cambios** realizados por
