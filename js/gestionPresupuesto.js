@@ -24,11 +24,11 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   this.fecha = isNaN(timestamp) ? Date.now() : timestamp;
   this.etiquetas = etiquetas.length > 0 ? etiquetas : [];
 
-  this.mostrarGastoCompleto = () => 
+  this.mostrarGastoCompleto = () =>
     `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\n` +
     `Fecha: ${new Date(this.fecha).toLocaleString()}\n` +
     `Etiquetas:\n` +
-    `${this.etiquetas.map(e => `- ${e}`).join("\n")}\n`;
+    `${this.etiquetas.map((e) => `- ${e}`).join("\n")}\n`;
   this.actualizarDescripcion = (descripcion) =>
     (this.descripcion = descripcion);
   this.actualizarValor = function (valor) {
@@ -41,8 +41,8 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     this.etiquetas = [...new Set([...this.etiquetas, ...etiquetas])];
   };
   this.borrarEtiquetas = (...etiquetas) => {
-    this.etiquetas = this.etiquetas.filter(e => !etiquetas.includes(e));
-  }
+    this.etiquetas = this.etiquetas.filter((e) => !etiquetas.includes(e));
+  };
 }
 
 function listarGastos() {
@@ -55,11 +55,17 @@ function anyadirGasto(gastoObject) {
 }
 
 function borrarGasto(gastoId) {
-  gastos = gastos.filter(gasto => gasto.id !== gastoId);
+  gastos = gastos.filter((gasto) => gasto.id !== gastoId);
 }
 
-function calcularTotalGastos() {}
-function calcularBalance() {}
+function calcularTotalGastos() {
+  return gastos.reduce((final, gasto) => final + gasto.valor, 0);
+}
+function calcularBalance() {
+  let gastosTotales = calcularTotalGastos();
+
+  return presupuesto - gastosTotales;
+}
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
