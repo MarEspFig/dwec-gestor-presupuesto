@@ -49,8 +49,15 @@ function listarGastos() {
   return gastos;
 }
 
-function anyadirGasto() {}
-function borrarGasto() {}
+function anyadirGasto(gastoObject) {
+  gastoObject.id = idGasto++;
+  gastos.push(gastoObject);
+}
+
+function borrarGasto(gastoId) {
+  gastos = gastos.filter(gasto => gasto.id !== gastoId);
+}
+
 function calcularTotalGastos() {}
 function calcularBalance() {}
 
