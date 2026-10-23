@@ -24,6 +24,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   this.fecha = isNaN(timestamp) ? Date.now() : timestamp;
   this.etiquetas = etiquetas.length > 0 ? etiquetas : [];
 
+  this.mostrarGasto = () => `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`
   this.mostrarGastoCompleto = () =>
     `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €.\n` +
     `Fecha: ${new Date(this.fecha).toLocaleString()}\n` +
