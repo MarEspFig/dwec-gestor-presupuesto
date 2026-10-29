@@ -44,6 +44,20 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   this.borrarEtiquetas = (...etiquetas) => {
     this.etiquetas = this.etiquetas.filter((e) => !etiquetas.includes(e));
   };
+  this.obtenerPeriodoAgrupacion = (periodo) => {
+    let fechaAsDate = new Date(this.fecha);
+    const anyo = fechaAsDate.getFullYear();
+    const mes = (fechaAsDate.getMonth() + 1).toString().padStart(2, "0");
+    const dia = fechaAsDate.getDate().toString().padStart(2, "0");
+
+
+    switch(periodo){
+      case "mes": return `${anyo}-${mes}`;
+      case "anyo": return anyo;
+      case "dia": return `${anyo}-${mes}-${dia}`;
+      default: return "";
+    }
+  }
 }
 
 function listarGastos() {
@@ -68,6 +82,46 @@ function calcularBalance() {
   return presupuesto - gastosTotales;
 }
 
+function filtrarGastos(objeto) {
+  let gastosFiltrados = gastos;
+
+  if (Object.keys(objeto).length === 0) return gastosFiltrados;
+
+  if ("fechaDesde" in objeto) {
+    const timestampDesde = Date.parse(objeto.fechaDesde);
+    gastosFiltrados = gastos.filter(gasto => gasto.fecha >= timestampDesde);
+  }
+
+  if ("fechaHasta" in objeto) {
+    const timestampHasta = Date.parse(objeto.fechaHasta);
+    gastosFiltrados = gastosFiltrados.filter(gasto => gasto.fecha <= timestampHasta);
+  }
+
+  if ("valorMinimo" in objeto) {
+    gastosFiltrados = gastosFiltrados.filter(gasto => gasto.valor >= objeto.valorMinimo);
+  }
+
+  if ("valorMaximo" in objeto) {
+    gastosFiltrados = gastosFiltrados.filter(gasto => gasto.valor <= objeto.valorMaximo);
+  }
+
+  if ("descripcionContiene" in objeto) {
+    gastosFiltrados = gastosFiltrados.filter(gasto => gasto.descripcion.toLowerCase().includes(objeto.descripcionContiene.toLowerCase()));
+  }
+
+  if ("etiquetasTiene" in objeto) {
+    gastosFiltrados = gastosFiltrados.filter(gasto => {
+      return gasto.etiquetas.some(etiqueta => objeto.etiquetasTiene.includes(etiqueta));
+    });
+  }
+
+  return gastosFiltrados
+}
+
+function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
+
+}
+
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
@@ -80,4 +134,6 @@ export {
   borrarGasto,
   calcularTotalGastos,
   calcularBalance,
+  filtrarGastos,
+  agruparGastos
 };
