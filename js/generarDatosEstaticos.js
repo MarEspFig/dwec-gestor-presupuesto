@@ -33,3 +33,12 @@ gastosFiltradosPorMasde200EurosConEtiquetaSeguros.forEach(gfpmddeces => gestionP
 
 let gastosFiltadosPorEtiquetasComidaTransporteOMenos50Euros = gestionPresupuesto.filtrarGastos({ valorMaximo: 50, etiquetasTiene: ["comida", "transporte"]})
 gastosFiltadosPorEtiquetasComidaTransporteOMenos50Euros.forEach(gfpectomce => gestionPresupuestoWeb.mostrarGastoWeb("listado-gastos-filtrado-4", gfpectomce));
+
+let gastosAgrupadosPorDia = gestionPresupuesto.agruparGastos("dia");
+gestionPresupuestoWeb.mostrarGastosAgrupadosWeb("agrupacion-dia", gastosAgrupadosPorDia, "día");
+
+let gastosAgrupadosPorMes = gestionPresupuesto.agruparGastos("mes");
+gestionPresupuestoWeb.mostrarGastosAgrupadosWeb("agrupacion-mes", gastosAgrupadosPorMes, "mes");
+
+let gastosAgrupadosPorAnyo = gestionPresupuesto.agruparGastos("anyo");
+gestionPresupuestoWeb.mostrarGastosAgrupadosWeb("agrupacion-anyo", gastosAgrupadosPorAnyo, "año");
