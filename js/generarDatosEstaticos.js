@@ -18,3 +18,18 @@ gastos.forEach(gasto => gestionPresupuesto.anyadirGasto(gasto));
 
 gestionPresupuestoWeb.mostrarDatoEnId("gastos-totales", gestionPresupuesto.calcularTotalGastos());
 gestionPresupuestoWeb.mostrarDatoEnId("balance-total", gestionPresupuesto.calcularBalance());
+
+let listadoGastos = gestionPresupuesto.listarGastos()
+listadoGastos.forEach(gasto => gestionPresupuestoWeb.mostrarGastoWeb("listado-gastos-completo", gasto));
+
+let gastosFiltradosPorFechaSeptiembre = gestionPresupuesto.filtrarGastos({ fechaDesde: "2021-09-01", fechaHasta: "2021-09-30"});
+gastosFiltradosPorFechaSeptiembre.forEach(gfpfs => gestionPresupuestoWeb.mostrarGastoWeb("listado-gastos-filtrado-1", gfpfs));
+
+let gastosFiltradosPorMasDe50Euros = gestionPresupuesto.filtrarGastos({ valorMinimo: 50});
+gastosFiltradosPorMasDe50Euros.forEach(gfpmdce => gestionPresupuestoWeb.mostrarGastoWeb("listado-gastos-filtrado-2", gfpmdce));
+
+let gastosFiltradosPorMasde200EurosConEtiquetaSeguros = gestionPresupuesto.filtrarGastos({ valorMinimo: 200, etoquetasTiene: ["seguros"]});
+gastosFiltradosPorMasde200EurosConEtiquetaSeguros.forEach(gfpmddeces => gestionPresupuestoWeb.mostrarGastoWeb("listado-gastos-filtrado-3", gfpmddeces));
+
+let gastosFiltadosPorEtiquetasComidaTransporteOMenos50Euros = gestionPresupuesto.filtrarGastos({ valorMaximo: 50, etiquetasTiene: ["comida", "transporte"]})
+gastosFiltadosPorEtiquetasComidaTransporteOMenos50Euros.forEach(gfpectomce => gestionPresupuestoWeb.mostrarGastoWeb("listado-gastos-filtrado-4", gfpectomce));
