@@ -36,6 +36,12 @@ export const mostrarGastoWeb = (idElemento, gasto) => {
     let spanEtiqueta = document.createElement("span");
     spanEtiqueta.setAttribute("class", "gasto-etiquetas-etiqueta");
     spanEtiqueta.textContent = etiqueta;
+
+    let deleteTagsHandler = new BorrarEtiquetasHandle();
+    deleteTagsHandler.gasto = gasto;
+    deleteTagsHandler.etiqueta = etiqueta;
+    spanEtiqueta.addEventListener("click", deleteTagsHandler);
+
     divGastoEtiquetas.append(spanEtiqueta);
   });
 
@@ -136,6 +142,13 @@ function EditarHandle() {
 function BorrarHandle() {
     this.handleEvent = () => {
         gp.borrarGasto(this.gasto.id);
+        repintar();
+    }
+}
+
+function BorrarEtiquetasHandle() {
+    this.handleEvent = () => {
+        this.gasto.borrarEtiquetas(this.etiqueta);
         repintar();
     }
 }
