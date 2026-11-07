@@ -110,7 +110,7 @@ const nuevoGastoWeb = () => {
       prompt("Dime la descripción del gasto"),
       parseInt(prompt("Dime el valor del gasto")),
       Date.parse(prompt("Dime la fecha del gasto")),
-      ...prompt("Dime las etiquetas del gasto separado por comas"),
+      ...prompt("Dime las etiquetas del gasto separado por comas").split(','),
     ),
   );
   repintar();
