@@ -1,8 +1,8 @@
 import * as gp from "./gestionPresupuesto.js";
 
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById('actualizarpresupuesto').addEventListener('click', actualizarPresupuestoWeb);
-  document.getElementById('anyadirgasto').addEventListener('click', nuevoGastoWeb);
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("actualizarpresupuesto").addEventListener("click", actualizarPresupuestoWeb);
+  document.getElementById("anyadirgasto").addEventListener("click", nuevoGastoWeb);
 });
 
 export const mostrarDatoEnId = (idElemento, valor) => {
@@ -39,10 +39,22 @@ export const mostrarGastoWeb = (idElemento, gasto) => {
     divGastoEtiquetas.append(spanEtiqueta);
   });
 
+  let btnEditar = document.createElement("button");
+  btnEditar.setAttribute("type", "button");
+  btnEditar.setAttribute("class", "gasto-editar");
+  btnEditar.textContent = "Editar";
+
+  console.log("Al crear botón:", gasto.valor);
+
+  let editHandler = new EditarHandle();
+  editHandler.gasto = gasto;
+  btnEditar.addEventListener("click", editHandler);
+
   divGasto.append(divGastoDescripcion);
   divGasto.append(divGastoFecha);
   divGasto.append(divGastoValor);
   divGasto.append(divGastoEtiquetas);
+  divGasto.append(btnEditar);
   elementById.append(divGasto);
 };
 
@@ -78,25 +90,39 @@ export const mostrarGastosAgrupadosWeb = (idElemento, agrup, periodo) => {
 
 const repintar = () => {
   mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
-  mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos());
-  mostrarDatoEnId('balance-total', gp.calcularBalance());
+  mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
+  mostrarDatoEnId("balance-total", gp.calcularBalance());
   document.getElementById("listado-gastos-completo").innerHTML = null;
 
-  gp.listarGastos().forEach(gasto => mostrarGastoWeb('listado-gastos-completo', gasto));
+  gp.listarGastos().forEach((gasto) =>
+    mostrarGastoWeb("listado-gastos-completo", gasto),
+  );
 };
 
 const actualizarPresupuestoWeb = () => {
-    gp.actualizarPresupuesto(parseInt(prompt("Introduce un prespuesto")));
-    repintar();
-}
+  gp.actualizarPresupuesto(parseInt(prompt("Introduce un prespuesto")));
+  repintar();
+};
 
 const nuevoGastoWeb = () => {
-    gp.anyadirGasto(
-        new gp.CrearGasto(
-            prompt("Dime la descripción del gasto"),
-            parseInt(prompt("Dime el valor del gasto")),
-            Date.parse(prompt("Dime la fecha del gasto")),
-            ...prompt("Dime las etiquetas del gasto separado por comas")
-    ));
+  gp.anyadirGasto(
+    new gp.CrearGasto(
+      prompt("Dime la descripción del gasto"),
+      parseInt(prompt("Dime el valor del gasto")),
+      Date.parse(prompt("Dime la fecha del gasto")),
+      ...prompt("Dime las etiquetas del gasto separado por comas"),
+    ),
+  );
+  repintar();
+};
+
+function EditarHandle() {
+  this.handleEvent = () => {
+    this.gasto.actualizarDescripcion(prompt("Dime la descripción del gasto", this.gasto.descripcion));
+    this.gasto.actualizarValor(parseFloat(prompt("Dime el valor del gasto", this.gasto.valor)));
+    this.gasto.actualizarFecha(Date.parse(prompt("Dime la fecha del gasto", this.gasto.fecha)));
+    this.gasto.anyadirEtiquetas(...prompt("Dime las etiquetas del gasto separado por comas", this.gasto.etiquetas.join(",")).split(","));
+    
     repintar();
+  };
 }
