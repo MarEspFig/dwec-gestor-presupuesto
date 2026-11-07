@@ -44,8 +44,6 @@ export const mostrarGastoWeb = (idElemento, gasto) => {
   btnEditar.setAttribute("class", "gasto-editar");
   btnEditar.textContent = "Editar";
 
-  console.log("Al crear botón:", gasto.valor);
-
   let editHandler = new EditarHandle();
   editHandler.gasto = gasto;
   btnEditar.addEventListener("click", editHandler);
