@@ -43,16 +43,24 @@ export const mostrarGastoWeb = (idElemento, gasto) => {
   btnEditar.setAttribute("type", "button");
   btnEditar.setAttribute("class", "gasto-editar");
   btnEditar.textContent = "Editar";
-
   let editHandler = new EditarHandle();
   editHandler.gasto = gasto;
   btnEditar.addEventListener("click", editHandler);
+
+  let btnBorrar = document.createElement("button");
+  btnBorrar.setAttribute("type", "button");
+  btnBorrar.setAttribute("class", "gasto-borrar");
+  btnBorrar.textContent = "Borrar";
+  let deleteHandler = new BorrarHandle();
+  deleteHandler.gasto = gasto;
+  btnBorrar.addEventListener("click", deleteHandler);
 
   divGasto.append(divGastoDescripcion);
   divGasto.append(divGastoFecha);
   divGasto.append(divGastoValor);
   divGasto.append(divGastoEtiquetas);
   divGasto.append(btnEditar);
+  divGasto.append(btnBorrar);
   elementById.append(divGasto);
 };
 
@@ -123,4 +131,11 @@ function EditarHandle() {
     
     repintar();
   };
+}
+
+function BorrarHandle() {
+    this.handleEvent = () => {
+        gp.borrarGasto(this.gasto.id);
+        repintar();
+    }
 }
