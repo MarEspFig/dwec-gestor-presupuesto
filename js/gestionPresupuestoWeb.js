@@ -2,6 +2,7 @@ import * as gp from "./gestionPresupuesto.js";
 
 document.addEventListener("DOMContentLoaded", function() {
   document.getElementById('actualizarpresupuesto').addEventListener('click', actualizarPresupuestoWeb);
+  document.getElementById('anyadirgasto').addEventListener('click', nuevoGastoWeb);
 });
 
 export const mostrarDatoEnId = (idElemento, valor) => {
@@ -86,5 +87,16 @@ const repintar = () => {
 
 const actualizarPresupuestoWeb = () => {
     gp.actualizarPresupuesto(parseInt(prompt("Introduce un prespuesto")));
+    repintar();
+}
+
+const nuevoGastoWeb = () => {
+    gp.anyadirGasto(
+        new gp.CrearGasto(
+            prompt("Dime la descripción del gasto"),
+            parseInt(prompt("Dime el valor del gasto")),
+            Date.parse(prompt("Dime la fecha del gasto")),
+            ...prompt("Dime las etiquetas del gasto separado por comas")
+    ));
     repintar();
 }
